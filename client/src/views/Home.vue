@@ -1,8 +1,4 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-  </div>
-</template>
+<template><div>We are in home</div></template>
 
 <script>
 // @ is an alias to /src
