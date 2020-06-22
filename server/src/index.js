@@ -3,6 +3,7 @@ const DB = require('../db/db')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt')
 const config = require('../config/config,js')
+const jwt = require('jsonwebtoken')
 
 const db = new DB('sqlitedb')
 const app = express()
@@ -21,7 +22,7 @@ const allowCrossDomain = function (req, res, next) {
 
 app.use(allowCrossDomain)
 
-router.post('/register', function (req, res) {
+router.post('/sign-up', function (req, res) {
   db.insert([
     req.body.name,
     req.body.email,
@@ -41,7 +42,21 @@ router.post('/register', function (req, res) {
     }
 })
 
-app.get('/posts', (req, res) => {
+router.post('/sign-in', (req, res) => {
+  db.selectByEmail(req.body.email, (err, user) => {
+    if (err) return res.status(500).send('Error on the server.')
+    if (!user) return res.status(404).send('No user found.')
+    let passwordIsValid = bcrypt.compareSync(req.body.password, user.user_pass)
+    if (!passwordIsValid)
+      return res.status(401).send({ auth: false, token: null })
+    let token = jwt.sign({ id: user.id }, config.secret, {
+      expiresIn: 86400, // expires in 24 hours
+    })
+    res.status(200).send({ auth: true, token: token, user: user })
+  })
+})
+
+app.get('/', (req, res) => {
   res.send([
     {
       title: 'Hello World!',
