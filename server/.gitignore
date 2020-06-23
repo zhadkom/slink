@@ -1,0 +1,4 @@
+.vercel
+.dockerignore
+Dockerfile
+doc/

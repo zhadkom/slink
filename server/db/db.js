@@ -10,8 +10,11 @@ class Db {
     const sql = `
         CREATE TABLE IF NOT EXISTS user (
         id integer PRIMARY KEY,
-        name text,
+        first_name text,
+        last_name text,
         email text UNIQUE,
+        image_url text,
+        created_at datetime NOT NULL,
         user_pass text)`
     return this.db.run(sql)
   }

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt')
 const config = require('../config/config,js')
 const jwt = require('jsonwebtoken')
+const { notFound, errorHandler } = require('../middlewares')
 
 const db = new DB('sqlitedb')
 const app = express()
@@ -21,6 +22,8 @@ const allowCrossDomain = function (req, res, next) {
 }
 
 app.use(allowCrossDomain)
+
+// routes go here
 
 router.post('/sign-up', function (req, res) {
   db.insert([
@@ -60,12 +63,16 @@ app.get('/', (req, res) => {
   res.send([
     {
       title: 'Hello World!',
-      description: 'Hi there! How are you?',
+      description: 'Updating docker image',
     },
   ])
 })
 
 app.use(router)
+
+//custom middlewares
+app.use(notFound)
+app.use(errorHandler)
 
 app.listen(process.env.PORT || config.port, () => {
   console.log('Server start on port: ' + config.port)
