@@ -1,0 +1,5 @@
+.vercel
+.dockerignore
+Dockerfile
+doc/
+/node_modules
