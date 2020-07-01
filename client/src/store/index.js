@@ -32,6 +32,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('AUTH_REQUEST')
         axios({
+          // TODO: routes for production
           url: 'http://localhost:8081/sign-up',
           data: user,
           method: 'POST'
@@ -55,6 +56,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('AUTH_REQUEST')
         axios({
+          // TODO: routes for production
           url: 'http://localhost:8081/sign-in',
           data: user,
           method: 'POST'

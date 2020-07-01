@@ -5,7 +5,9 @@
         <b-col>
           <h1>Your links are safe</h1>
           <p>Save, group, send your links and much more</p>
-          <b-button size="md" variant="outline-dark">Try it out</b-button>
+          <b-button size="md" variant="outline-dark" :to="{ name: 'SignUp' }"
+            >Try it out</b-button
+          >
         </b-col>
       </b-row>
     </b-container>

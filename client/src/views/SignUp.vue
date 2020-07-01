@@ -1,36 +1,62 @@
 <template>
-  <div>
-    <h4>Register</h4>
-    <form @submit.prevent="signUp">
-      <label for="name">Name</label>
-      <div>
-        <input id="name" type="text" v-model="name" required autofocus />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <h4 class="form-title">Sign up</h4>
+        <b-form @submit.prevent="signUp">
+          <b-form-group label="First name" label-for="first_name">
+            <b-form-input
+              id="first_name"
+              v-model="first_name"
+              required
+              placeholder="Enter your first name"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Last name" label-for="last_name">
+            <b-form-input
+              id="last_name"
+              v-model="last_name"
+              required
+              placeholder="Enter your last name"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Email" label-for="email">
+            <b-form-input
+              id="email"
+              type="email"
+              v-model="email"
+              required
+              placeholder="Enter your email"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Password" label-for="password">
+            <b-form-input
+              id="password"
+              type="password"
+              v-model="password"
+              required
+              placeholder="Enter your password"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group
+            label="Confirm password"
+            label-for="passwordConfirmation"
+          >
+            <b-form-input
+              id="passwordConfirmation"
+              type="password"
+              v-model="passwordConfirmation"
+              required
+              placeholder="Confirm your password"
+            ></b-form-input>
+          </b-form-group>
+          <b-button type="submit" variant="primary">Sign up</b-button>
+          <b-link class="flow-link text-secondary" :to="{ name: 'SignIn' }"
+            >Already have an account? Then sign in</b-link
+          >
+        </b-form>
       </div>
-
-      <label for="email">E-Mail Address</label>
-      <div>
-        <input id="email" type="email" v-model="email" required />
-      </div>
-
-      <label for="password">Password</label>
-      <div>
-        <input id="password" type="password" v-model="password" required />
-      </div>
-
-      <label for="password-confirm">Confirm Password</label>
-      <div>
-        <input
-          id="password-confirm"
-          type="password"
-          v-model="passwordConfirmation"
-          required
-        />
-      </div>
-
-      <div>
-        <button type="submit">Register</button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -38,7 +64,8 @@
 export default {
   data() {
     return {
-      name: '',
+      first_name: '',
+      last_name: '',
       email: '',
       password: '',
       passwordConfirmation: ''
@@ -46,12 +73,17 @@ export default {
   },
 
   methods: {
+    //TODO: password confirmation
     signUp() {
       let user = {
-        name: this.name,
+        first_name: this.first_name,
+        last_name: this.last_name,
         email: this.email,
         password: this.password,
-        passwordConfirmation: this.passwordConfirmation
+        passwordConfirmation: this.passwordConfirmation,
+        image_url: '',
+        created_at: new Date(),
+        role_id: 1
       }
 
       this.$store
